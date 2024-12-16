@@ -1,0 +1,8 @@
+UpdateCode:
+    stage: build
+    script:
+      - cd E:\Applications\Production\hiepkhach.vtczone.vn
+      - git pull
+      
+    tags:
+    - shell
