@@ -3,14 +3,14 @@
 
 @endsection
 @section('title')
-    Banner
+    Bài viết
 @endsection
 @section('content_header_name')
-    Sửa banner
+    Sửa bài viết
 @endsection
 @section('redirect_to_list')
-    <a role="button"href="{{route('admin.banner.form.edit', $banner->id)}}">
-        Sửa banner
+    <a role="button"href="{{route('admin.news.form.edit', $new->id)}}">
+        Sửa bài viết
     </a>
 @endsection
 @section('content')
@@ -19,40 +19,29 @@
         <!-- general form elements -->
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">Sửa banner</h3>
+                <h3 class="card-title">Sửa bài viết</h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form role="form" method="post" action="{{route('admin.banner.form.update', $banner->id)}}"
+            <form role="form" method="post" action="{{route('admin.news.form.update', $new->id)}}"
                   enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Tên</label>
-                                <input type="text" name="name" placeholder="Tên" class="form-control" value="{{$banner['name'] ? $banner['name'] : old('name')}}">
-                                @error('name')
+                                <label for="exampleInputEmail1">Tiêu đề</label>
+                                <input type="text" name="title" placeholder="Tiêu đề bài viết" class="form-control" value="{{$new['title'] ? $new['title'] : old('title')}}">
+                                @error('title')
                                 <p class="text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-12">
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Ảnh</label>
-                                <input type='file' onchange="readURL(this);" name="image"/>
-                                <br>
-                                <img id="image" style="width: 200px; height: 200px" src="{{!empty($banner->image) ? $banner->image : '#'}}" alt="images"/>
-                                @error('image')
-                                <p class="text-danger">{{ $message }}</p>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Liên kết</label>
-                                <input type="text" name="link" placeholder="Nhập đường dẫn" class="form-control" value="{{$banner['link'] ? $banner['link'] : old('link')}}">
-                                @error('link')
+                                <label for="exampleInputEmail1">Nội dung</label>
+                                <textarea id="editor" name="content" rows="10">{{$new['content'] ? $new['content'] : old('content')}}</textarea>
+                                @error('content')
                                 <p class="text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
@@ -62,7 +51,7 @@
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                    <a role="button"class="btn btn-primary" href="{{route('admin.banner.list')}}">quay lại</a>
+                    <a role="button"class="btn btn-primary" href="{{route('admin.news.list')}}">quay lại</a>
                     <button type="submit" class="btn btn-primary">Lưu</button>
                 </div>
             </form>
@@ -71,7 +60,17 @@
     </div>
 @endsection
 @section('js')
+    <script src="{{asset('/assets/plugins/select2/js/select2.full.min.js')}}"></script>
     <script>
+        $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
+            //Initialize Select2 Elements
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
+        });
         // Replace the <textarea id="editor1"> with a CKEditor 4
         // instance, using default configuration.
         CKEDITOR.replace( 'editor', {

@@ -3,19 +3,19 @@
     <link rel="stylesheet" href="{{asset('/assets/plugins/datatables-bs4/css/dataTables.bootstrap4.css')}}">
 @endsection
 @section('title')
-    Nhân vật
+    Bài viết
 @endsection
 @section('content_header_name')
     Danh sách
 @endsection
 @section('redirect_to_list')
-    <a role="button"href="{{route('admin.actor.list')}}">
+    <a role="button"href="{{route('admin.news.list')}}">
         Danh sách
     </a>
 @endsection
 @section('content')
     <div class="col-md-12">
-        <a role="button"class="btn btn-primary float-right" href="{{route('admin.actor.form.get')}}">
+        <a role="button"class="btn btn-primary float-right" href="{{route('admin.news.form.get')}}">
             Tạo mới item
         </a>
     </div>
@@ -24,18 +24,18 @@
             <thead>
             <tr>
                 <th>STT</th>
-                <th>Tên</th>
+                <th>Tiêu đề</th>
                 <th>Hành động</th>
             </tr>
             </thead>
             <tbody>
-            @foreach($actors as $index => $item)
+            @foreach($news as $index => $item)
                 <tr>
                     <td>{{$index + 1 }}</td>
-                    <td>{{$item['name']}}</td>
+                    <td>{{$item['title']}}</td>
                     <td class="text-center">
-                        <a role="button"href="{{route('admin.actor.form.edit', $item->id)}}"><i class="fa fa-edit"></i></a>
-                        <a role="button"href="{{route('admin.actor.delete', $item->id)}}"><i class="fa fa-trash"></i></a>
+                        <a role="button"href="{{route('admin.news.form.edit', $item->id)}}"><i class="fa fa-edit"></i></a>
+                        <a role="button"href="{{route('admin.news.delete', $item->id)}}"><i class="fa fa-trash"></i></a>
                     </td>
                 </tr>
             @endforeach

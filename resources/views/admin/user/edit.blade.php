@@ -28,8 +28,8 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Tên người dùng</label>
-                        <input type="text" name="name" class="form-control" placeholder="Nhập tên người dùng" value="{{old('name') ? old('name') : $user->name}}">
-                        @error('name')
+                        <input type="text" name="fullname" class="form-control" placeholder="Nhập tên người dùng" value="{{old('fullname') ? old('fullname') : $user->fullname}}">
+                        @error('fullname')
                         <p class="danger">{{ $message }}</p>
                         @enderror
                     </div>
@@ -56,55 +56,8 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Số điện thoại</label>
-                        <input type="text" class="form-control" name="phone" placeholder="Nhập mã giới thiệu" value="{{old('phone') ? old('phone') : $user->phone}}">
-                        @error('phone')
-                        <p class="danger">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    @if(auth()->user()->group == GROUP_ADMIN)
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Phân quyền</label>
-                            <select class="form-control select2" name="group" style="width: 100%;">
-                                <option @if($user->group == 1 || old('active') == 1) {{"selected"}} @endif value="1">Super Admin</option>
-                                <option @if($user->group == 2 || old('active') == 2) {{"selected"}} @endif value="2">Admin</option>
-                            </select>
-                            @error('group')
-                            <p class="danger">{{ $message }}</p>
-                            @enderror
-                        </div>
-                    @endif
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Giới tính</label>
-                        <select class="form-control select2" name="gender" style="width: 100%;">
-                            @foreach(config('base.gender') as $key => $value)
-                                <option @if($user->gender == $key || old('gender') == $key) {{"selected"}} @endif value="{{$key}}">{{$value}}</option>
-                            @endforeach
-                        </select>
-                        @error('gender')
-                        <p class="danger">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Trạng thái</label>
-                        <select class="form-control select2" name="active" style="width: 100%;">
-                            @foreach(config('base.active') as $key => $value)
-                                <option @if($user->active == $key || old('active') == $key) {{"selected"}} @endif value="{{$key}}">{{$value}}</option>
-                            @endforeach
-                        </select>
-                        @error('active')
-                        <p class="danger">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Ảnh đại diện</label>
-                        <input type='file' onchange="readURL(this);" name="avatar"/>
-                        <br>
-                        @if(isset($user->avatar))
-                            <img id="avatar" style="width: 100px; height: 200px" src="{{$user->avatar}}" alt="avatar"/>
-                        @else
-                            <img id="avatar" style="width: 100px; height: 200px" src="#" alt="avatar"/>
-                        @endif
-                        @error('avatar')
+                        <input type="text" class="form-control" name="phonenumber" placeholder="Nhập mã giới thiệu" value="{{old('phonenumber') ? old('phonenumber') : $user->phonenumber}}">
+                        @error('phonenumber')
                         <p class="danger">{{ $message }}</p>
                         @enderror
                     </div>

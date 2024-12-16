@@ -27,8 +27,6 @@
                 <th>Tên </th>
                 <th>Tên đăng nhập </th>
                 <th>Thư điện tử</th>
-                <th>Nhóm</th>
-                <th>Trạng thái</th>
                 <th>Hành động</th>
             </tr>
             </thead>
@@ -36,11 +34,9 @@
             @foreach($users as $item)
                 @csrf
                 <tr>
-                    <td>{{$item->name}}</td>
+                    <td>{{$item->fullname}}</td>
                     <td>{{$item->username}}</td>
                     <td>{{$item->email}}</td>
-                    <td>{{config('base.level_of_user')[$item->group]}}</td>
-                    <td>{{config('base.active')[$item->active]}}</td>
                     <td class="text-center">
                         <a role="button"href="{{route('admin.user.form.edit', $item->id)}}"><i class="fa fa-edit"></i></a>
                         @if(auth()->user()->group == GROUP_ADMIN)

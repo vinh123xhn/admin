@@ -24,7 +24,7 @@ class LoginController extends Controller
             // tra ve true neu validate bi loi
             return redirect()->back()->withErrors($validator)->withInput($request->input());
         } else {
-            if (Auth::attempt(['username' => $request->username, 'password' => $request->password, 'active' => ACTIVE_TRUE])) {
+            if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
                 $request->session()->regenerate();
                 return redirect()->route('admin.dashboard');
             };

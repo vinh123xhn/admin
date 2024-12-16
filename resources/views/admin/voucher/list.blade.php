@@ -3,19 +3,19 @@
     <link rel="stylesheet" href="{{asset('/assets/plugins/datatables-bs4/css/dataTables.bootstrap4.css')}}">
 @endsection
 @section('title')
-    Banner
+    Voucher
 @endsection
 @section('content_header_name')
-    Danh sách
+    Voucher
 @endsection
 @section('redirect_to_list')
-    <a role="button"href="{{route('admin.banner.list')}}">
+    <a role="button"href="{{route('admin.voucher.list')}}">
         Danh sách
     </a>
 @endsection
 @section('content')
     <div class="col-md-12">
-        <a role="button"class="btn btn-primary float-right" href="{{route('admin.banner.form.get')}}">
+        <a role="button"class="btn btn-primary float-right" href="{{route('admin.voucher.form.get')}}">
             Tạo mới item
         </a>
     </div>
@@ -24,22 +24,22 @@
             <thead>
             <tr>
                 <th>STT</th>
-                <th>Tên</th>
-                <th>Ảnh</th>
+                <th>Name</th>
+                <th>Code</th>
+                <th>Discount</th>
                 <th>Hành động</th>
             </tr>
             </thead>
             <tbody>
-            @foreach($banners as $index => $item)
+            @foreach($vouchers as $index => $item)
                 <tr>
                     <td>{{$index + 1 }}</td>
-                    <td>{{$item['name']}}</td>
-                    <td>
-                        <img style="width: 100px; height: 100px" src="{{$item->image}}">
-                    </td>
+                    <td>{{$item['voucher_name']}}</td>
+                    <td>{{$item['voucher_code']}}</td>
+                    <td>{{$item['voucher_discount']}}</td>
                     <td class="text-center">
-                        <a role="button"href="{{route('admin.banner.form.edit', $item->id)}}"><i class="fa fa-edit"></i></a>
-                        <a role="button"href="{{route('admin.banner.delete', $item->id)}}"><i class="fa fa-trash"></i></a>
+                        <a role="button"href="{{route('admin.voucher.form.edit', $item->id)}}"><i class="fa fa-edit"></i></a>
+                        <a role="button"href="{{route('admin.voucher.delete', $item->id)}}"><i class="fa fa-trash"></i></a>
                     </td>
                 </tr>
             @endforeach

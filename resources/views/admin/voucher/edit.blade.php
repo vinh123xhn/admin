@@ -3,14 +3,14 @@
 
 @endsection
 @section('title')
-    Danh mục
+    Voucher
 @endsection
 @section('content_header_name')
-    Sửa
+    Sửa bài viết
 @endsection
 @section('redirect_to_list')
-    <a role="button"href="{{route('admin.category.form.edit', $category->id)}}">
-        Sửa
+    <a role="button"href="{{route('admin.voucher.form.edit', $voucher->id)}}">
+        Sửa bài viết
     </a>
 @endsection
 @section('content')
@@ -19,40 +19,38 @@
         <!-- general form elements -->
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">Sửa Danh mục</h3>
+                <h3 class="card-title">Sửa voucher</h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form role="form" method="post" action="{{route('admin.category.form.update', $category->id)}}"
+            <form role="form" method="post" action="{{route('admin.voucher.form.update', $voucher->id)}}"
                   enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-12">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Tên</label>
-                                <input type="text" name="name" placeholder="Tên danh mục" class="form-control" value="{{$category['name'] ? $category['name'] : old('name')}}">
-                                @error('name')
+                                <label for="exampleInputEmail1">Name</label>
+                                <input type="text" name="voucher_name" placeholder="Name" class="form-control" value="{{$voucher['voucher_name'] ? $voucher['voucher_name'] : old('voucher_name')}}">
+                                @error('voucher_name')
                                 <p class="text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-12">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Danh mục cha</label>
-                                <select class="form-control" name="parent_id" id="parent_id" style="width: 100%;">
-                                    <option  @if($category->parent_id == '')
-                                                 {{"selected"}}
-                                             @endif
-                                             value="">Lựa chọn</option>
-                                    @foreach($categories as $k => $item)
-                                        <option  @if($category->parent_id == $item->id)
-                                                     {{"selected"}}
-                                                 @endif
-                                                 value="{{$item->id}}">{{$item->name}}</option>
-                                    @endforeach
-                                </select>
-                                @error('parent_id')
+                                <label for="exampleInputEmail1">Code</label>
+                                <input type="text" name="voucher_code" placeholder="Code" class="form-control" value="{{$voucher['voucher_code'] ? $voucher['voucher_code'] : old('voucher_code')}}">
+                                @error('voucher_code')
+                                <p class="text-danger">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Discount</label>
+                                <input type="text" name="voucher_discount" placeholder="Discount" class="form-control" value="{{$voucher['voucher_discount'] ? $voucher['voucher_discount'] : old('voucher_discount')}}">
+                                @error('voucher_discount')
                                 <p class="text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
@@ -62,8 +60,8 @@
                 <!-- /.card-body -->
 
                 <div class="card-footer">
+                    <a role="button"class="btn btn-primary" href="{{route('admin.voucher.list')}}">quay lại</a>
                     <button type="submit" class="btn btn-primary">Lưu</button>
-                    <a role="button"class="btn btn-primary" href="{{route('admin.category.list')}}">quay lại</a>
                 </div>
             </form>
         </div>
@@ -71,7 +69,17 @@
     </div>
 @endsection
 @section('js')
+    <script src="{{asset('/assets/plugins/select2/js/select2.full.min.js')}}"></script>
     <script>
+        $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
+            //Initialize Select2 Elements
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
+        });
         // Replace the <textarea id="editor1"> with a CKEditor 4
         // instance, using default configuration.
         CKEDITOR.replace( 'editor', {

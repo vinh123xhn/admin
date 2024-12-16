@@ -28,8 +28,8 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Tên người dùng</label>
-                        <input type="text" name="name" class="form-control" placeholder="Nhập tên người dùng" value="{{old('name')}}">
-                        @error('name')
+                        <input type="text" name="fullname" class="form-control" placeholder="Nhập tên người dùng" value="{{old('fullname')}}">
+                        @error('fullname')
                         <p class="danger">{{ $message }}</p>
                         @enderror
                     </div>
@@ -56,52 +56,8 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Số điện thoại</label>
-                        <input type="text" class="form-control" name="phone" placeholder="Nhập mã giới thiệu" value="{{old('phone')}}">
-                        @error('phone')
-                        <p class="danger">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    @if(auth()->user()->group == GROUP_ADMIN)
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Phân quyền</label>
-                            <select class="form-control select2" name="group" style="width: 100%;">
-                                <option @if(old('group') == "") {{"selected"}} @endif value="">Lựa chọn</option>
-                                <option @if(old('group') == 1) {{"selected"}} @endif value="1">Super Admin</option>
-                                <option @if(old('group') == 2) {{"selected"}} @endif value="2">Admin</option>
-                            </select>
-                            @error('group')
-                            <p class="danger">{{ $message }}</p>
-                            @enderror
-                        </div>
-                    @endif
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Giới tính</label>
-                        <select class="form-control select2" name="gender" style="width: 100%;">
-                            @foreach(config('base.gender') as $key => $value)
-                                <option @if(old('gender') == $key) {{"selected"}} @endif value="{{$key}}">{{$value}}</option>
-                            @endforeach
-                        </select>
-                        @error('gender')
-                        <p class="danger">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Trạng thái</label>
-                        <select class="form-control select2" name="active" style="width: 100%;">
-                            @foreach(config('base.active') as $key => $value)
-                                <option @if(old('active') == $key) {{"selected"}} @endif value="{{$key}}">{{$value}}</option>
-                            @endforeach
-                        </select>
-                        @error('active')
-                        <p class="danger">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Ảnh đại diện</label>
-                        <input type='file' onchange="readURL(this);" name="avatar"/>
-                        <br>
-                        <img id="avatar" src="#" alt="avatar"/>
-                        @error('avatar')
+                        <input type="text" class="form-control" name="phonenumber" placeholder="Nhập mã giới thiệu" value="{{old('phonenumber')}}">
+                        @error('phonenumber')
                         <p class="danger">{{ $message }}</p>
                         @enderror
                     </div>

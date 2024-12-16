@@ -28,16 +28,30 @@
                         </p>
                     </a>
                 </li>
-                @foreach(config('app.list_menu') as $k => $item)
-                    <li class="nav-item">
-                        <a role="button"href="{{$item['link']}}" class="nav-link" onclick="addClass({{$k}})">
-                            <i class="nav-icon fas {{$item['icon']}}"></i>
-                            <p>
-                                {{$item['name']}}
-                            </p>
-                        </a>
-                    </li>
-                @endforeach
+                <li class="nav-item">
+                    <a role="button" href="{{route('admin.news.list')}}" class="nav-link" onclick="addClass({{1}})">
+                        <i class="nav-icon fas fa-list"></i>
+                        <p>
+                            News
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a role="button" href="{{route('admin.voucher.list')}}" class="nav-link" onclick="addClass({{2}})">
+                        <i class="nav-icon fas fa-list"></i>
+                        <p>
+                            Voucher
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a role="button" href="{{route('admin.user.list')}}" class="nav-link" onclick="addClass({{3}})">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>
+                            Người dùng
+                        </p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

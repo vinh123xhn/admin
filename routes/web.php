@@ -39,6 +39,36 @@ Route::group(['prefix' => 'auth', 'namespace' => 'App\\Http\\Controllers\\Admin'
 Route::group(['namespace' => 'App\\Http\\Controllers\\Admin', 'middleware' => ['auth','check-ip'], 'prefix' => '/admin'], function () {
     Route::get('/', 'AdminController@index')->name('admin.dashboard');
 
+    Route::group(['prefix' => 'news'], function () {
+        Route::get('/', 'NewController@index')->name('admin.news.list');
+        Route::get('/detail', 'NewController@detail')->name('admin.news.detail');
+        Route::get('/form', 'NewController@getForm')->name('admin.news.form.get');
+        Route::post('/form', 'NewController@saveForm')->name('admin.news.form.post');
+        Route::get('/edit/{id}', 'NewController@editForm')->name('admin.news.form.edit');
+        Route::post('/update/{id}', 'NewController@updateForm')->name('admin.news.form.update');
+        Route::get('/delete/{id}', 'NewController@delete')->name('admin.news.delete');
+    });
+
+    Route::group(['prefix' => 'voucher'], function () {
+        Route::get('/', 'VoucherController@index')->name('admin.voucher.list');
+        Route::get('/detail', 'VoucherController@detail')->name('admin.voucher.detail');
+        Route::get('/form', 'VoucherController@getForm')->name('admin.voucher.form.get');
+        Route::post('/form', 'VoucherController@saveForm')->name('admin.voucher.form.post');
+        Route::get('/edit/{id}', 'VoucherController@editForm')->name('admin.voucher.form.edit');
+        Route::post('/update/{id}', 'VoucherController@updateForm')->name('admin.voucher.form.update');
+        Route::get('/delete/{id}', 'VoucherController@delete')->name('admin.voucher.delete');
+    });
+
+    Route::group(['namespace' => 'User', 'prefix' => 'users'], function () {
+        Route::get('/', 'UserController@index')->name('admin.user.list');
+        Route::get('/detail', 'UserController@detail')->name('admin.user.detail');
+        Route::get('/form', 'UserController@getForm')->name('admin.user.form.get');
+        Route::post('/form', 'UserController@saveForm')->name('admin.user.form.post');
+        Route::get('/edit/{id}', 'UserController@editForm')->name('admin.user.form.edit');
+        Route::post('/update/{id}', 'UserController@updateForm')->name('admin.user.form.update');
+        Route::get('/delete/{id}', 'UserController@delete')->name('admin.user.delete');
+    });
+
     Route::group(['namespace' => 'User', 'prefix' => 'users'], function () {
         Route::get('/', 'UserController@index')->name('admin.user.list');
         Route::get('/detail', 'UserController@detail')->name('admin.user.detail');

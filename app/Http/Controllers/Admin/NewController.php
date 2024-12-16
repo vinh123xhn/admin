@@ -2,35 +2,40 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Activity;
+use App\Models\News;
+use App\Models\Post;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
-class ActivityController extends Controller
+class NewController extends Controller
 {
     public function index() {
-        $activities = Activity::orderBy('created_at')->get();
-        return view('admin.activity.list')->with(compact('activities'));
+        $news = News::orderBy('created_at')->get();
+        return view('admin.news.list')->with(compact('news'));
     }
 
     public function getForm() {
-        return view('admin.activity.form');
+        return view('admin.news.form');
     }
 
     public function saveForm(Request $request) {
         $rules = [
-            'name' => 'required',
-            'time' => 'required',
+            'title' => 'required',
+            'content' => 'required',
         ];
 
         $messages = [
-            'name.required' => 'Tên không được để trống',
-            'time.required' => 'Thời gian không được để trống',
+            'title.required' => 'Tiêu đề không được để trống',
+            'content.required' => 'Nội dung không được để trống',
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()) {
@@ -38,47 +43,55 @@ class ActivityController extends Controller
             return redirect()->back()->withErrors($validator)->withInput($request->input());
         } else {
             $data = $request->all();
+            $user = Auth::user();
+            $data['create_by'] = $user['id'];
+            $data['update_by'] =$user['id'];
+            $data['update_at'] = Carbon::now();
             DB::beginTransaction();
             try {
-                Activity::create($data);
+                $post = News::create($data);
                 DB::commit();
             } catch (\Exception $exception) {
                 DB::rollBack();
                 Log::error('Lỗi ' . $exception->getMessage());
             }
-            return redirect()->route('admin.activity.list');
+            return redirect()->route('admin.news.list');
         }
     }
 
     public function editForm($id) {
-        $activity = Activity::FindOrFail($id);
-        return view('admin.activity.edit', ['activity' => $activity]);
+        $new = News::FindOrFail($id);
+        return view('admin.news.edit', ['new' => $new]);
     }
 
     public function updateForm(Request $request, $id) {
         $rules = [
-            'name' => 'required',
-            'time' => 'required',
+            'title' => 'required',
+            'content' => 'required',
         ];
 
         $messages = [
-            'name.required' => 'Tên không được để trống',
-            'time.required' => 'Thời gian không được để trống',
+            'title.required' => 'Tiêu đề không được để trống',
+            'content.required' => 'Nội dung không được để trống',
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()) {
             // tra ve true neu validate bi loi
             return redirect()->back()->withErrors($validator)->withInput($request->input());
         } else {
-            $activity = Activity::FindOrFail($id);
+            $news = News::FindOrFail($id);
             $updateRequest = $request->all();
-            $activity->update($updateRequest);
-            return redirect()->route('admin.activity.list');
+            $user = Auth::user();
+            $updateRequest['create_by'] = $user['id'];
+            $updateRequest['update_by'] = $user['id'];
+            $updateRequest['update_at'] = Carbon::now();
+            $news->update($updateRequest);
+            return redirect()->route('admin.news.list');
         }
     }
 
     public function delete($id) {
-        Activity::FindOrFail($id)->delete();
+        News::FindOrFail($id)->delete();
         return redirect()->back();
     }
 }
