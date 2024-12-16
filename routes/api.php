@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Api\HomePageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,8 +14,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('get-posts-index', [HomePageController::class, 'getPostForIndex'])->name('get-posts-index-api');
-Route::get('get-posts-ebook', [\App\Http\Controllers\Api\EbookController::class, 'getPost'])->name('get-posts-ebook-api');
-Route::get('ranking', [HomePageController::class, 'getRanking'])->name('ranking-api');
-//Route::get('ranking/{serverId}', [HomePageController::class, 'ranking'])->name('ranking-api');
 
